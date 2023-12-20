@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+  <!-- Page Content -->
+  {%  block content %}
+      <!-- Post Content Column -->
+        <!-- Title -->
+        <h3 class="mt-4">{{post.title}}</h3>
+
+        <!-- Author -->
+        <p class="lead">
+          by
+          <a href="#">{{post.writer}}</a>
+        </p>
+
+        <hr>
+
+        <!-- Date/Time -->
+        <p>Posted on {{post.created_on}}</p>
+
+        <hr>
+
+        <!-- Preview Image -->
+        <img class="img-fluid rounded" src="{{post.image.url}}" alt="">
+
+        <hr>
+
+        <!-- Post Content -->
+        <p>{{post.body}}</p>
+
+        
+          
+        <hr>
+
+        <!-- Comments Form -->
+        <div class="card my-4">
+          <h5 class="card-header">Leave a Comment:</h5>
+          <div class="card-body">
+            <form method="POST">
+                {% csrf_token %}
+              <!-- <div class="form-group">
+                <textarea class="form-control" rows="3"></textarea>
+              </div> -->
+              {{form.commenter}}
+              {{form.body}}
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Single Comment -->
+        {% for comment in comments %}
+        <div class="media mb-4">
+          <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+          <div class="media-body">
+            <h5 class="mt-0">{{comment.commenter}}</h5>
+            {{comment.body}}
+          </div>
+        </div>
+        {% endfor %}
+
+     {% endblock %}
